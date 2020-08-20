@@ -26,7 +26,15 @@
                 </div>
                 <div class="as-accessories-results  as-search-desktop">
                     <div class="width:60%">
-                      {{ message }}
+                      <h1>{{ message }}</h1>
+                    </div>
+
+                    <div class="width:60%">
+                      <ul>
+                        {{#each data}}
+                          <li>{{key}}: {{value}}</li>
+                        {{/each}}
+                      </ul>
                     </div>
                 </div>
             </div>

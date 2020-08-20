@@ -89,15 +89,24 @@ app.get('/detail', function (req, res) {
 
 app.get('/success', function (req, res) {
     console.log(req);
-    res.render('result', { message: 'El pago se realizó exitosamente' });
+    res.render('result', {
+        data: Object.keys(req.query).map(key => ({ key, value: req.query[key] })),
+        message: 'El pago se realizó exitosamente',
+    });
 });
 app.get('/failure', function (req, res) {
     console.log(req);
-    res.render('result', { message: 'El pago ha sido rechazado' });
+    res.render('result', {
+        data: Object.keys(req.query).map(key => ({ key, value: req.query[key] })),
+        message: 'El pago ha sido rechazado',
+    });
 });
 app.get('/pending', function (req, res) {
     console.log(req);
-    res.render('result', { message: 'Procesando el pago' });
+    res.render('result', {
+        data: Object.keys(req.query).map(key => ({ key, value: req.query[key] })),
+        message: 'Procesando el pago',
+    });
 });
 
 app.use(express.static('assets'));
