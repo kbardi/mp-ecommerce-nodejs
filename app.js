@@ -1,10 +1,12 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
 const mercadopago = require('mercadopago');
+const bodyParser = require('body-parser');
 
 require('dotenv').config();
  
 const app = express();
+app.use(bodyParser.json());
 
 const port = process.env.PORT || 3000;
 
@@ -91,21 +93,18 @@ app.get('/detail', function (req, res) {
 });
 
 app.get('/success', function (req, res) {
-    console.log(req);
     res.render('result', {
         data: Object.keys(req.query).map(key => ({ key, value: req.query[key] })),
         message: 'El pago se realizó exitosamente',
     });
 });
 app.get('/failure', function (req, res) {
-    console.log(req);
     res.render('result', {
         data: Object.keys(req.query).map(key => ({ key, value: req.query[key] })),
         message: 'El pago ha sido rechazado',
     });
 });
 app.get('/pending', function (req, res) {
-    console.log(req);
     res.render('result', {
         data: Object.keys(req.query).map(key => ({ key, value: req.query[key] })),
         message: 'Procesando el pago',
