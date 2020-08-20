@@ -1,10 +1,12 @@
-var express = require('express');
-var exphbs  = require('express-handlebars');
-var mercadopago = require('mercadopago');
+const express = require('express');
+const exphbs  = require('express-handlebars');
+const mercadopago = require('mercadopago');
 
 require('dotenv').config();
  
-var app = express();
+const app = express();
+
+const port = process.env.PORT || 3000;
 
 mercadopago.configure({
     access_token: process.env.ACCESS_TOKEN,
@@ -72,6 +74,7 @@ app.get('/detail', function (req, res) {
                 },
             ],
         },
+        notification_url: `${currentUrl}notification`,
     };
     mercadopago.preferences.create(preference)
         .then(function(response) {
@@ -108,9 +111,14 @@ app.get('/pending', function (req, res) {
         message: 'Procesando el pago',
     });
 });
+app.get('/notification', function(req, res) {
+    console.log(req);
+});
 
 app.use(express.static('assets'));
  
 app.use('/assets', express.static(__dirname + '/assets'));
  
-app.listen(3000);
+app.listen(port);
+app.on('error', (err) => console.error('Error:', err));
+app.on('listening', () => console.log('Listening on port: ' + port));
