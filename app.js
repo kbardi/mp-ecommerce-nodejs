@@ -111,8 +111,9 @@ app.get('/pending', function (req, res) {
         message: 'Procesando el pago',
     });
 });
-app.get('/notification', function(req, res) {
-    console.log(req);
+app.post('/notification', function(req, res) {
+    console.log('Notification body: ', req.body);
+    console.log('Notification query: ', req.query);
 });
 
 app.use(express.static('assets'));
