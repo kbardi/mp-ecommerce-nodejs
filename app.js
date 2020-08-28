@@ -113,6 +113,11 @@ app.get('/pending', function (req, res) {
 app.post('/notification', function(req, res) {
     console.log('Notification body: ', req.body);
     console.log('Notification query: ', req.query);
+    if (req.query.topic === 'payment') {
+        mercadopago.payment.get(req.query.id).then(function (payment) {
+            console.log('NOTIFICATION PAYMENT: ', payment);
+        });
+    }
 });
 
 app.use(express.static('assets'));
